@@ -1,0 +1,665 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Keras}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Introduction to deep
+learning}\label{introduction-to-deep-learning}
+
+    What is artificial neural network: 인공신경망(人工神經網, 영어:
+artificial neural network, ANN)은 기계학습과 인지과학에서 생물학의
+신경망(동물의 중추신경계중 특히 뇌)에서 영감을 얻은 통계학적 학습
+알고리즘이다.
+
+    \subsection{Interactions}\label{interactions}
+
+\begin{itemize}
+\tightlist
+\item
+  Neural networks account for interaction really well
+\item
+  Deep learning uses especially powerful neural networks(딥러닝은 nn에
+  매우 강하고 좋음)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Text
+  \item
+    imge 등등
+  \end{itemize}
+\end{itemize}
+
+    \subsection{Course structure}\label{course-structure}
+
+\begin{itemize}
+\tightlist
+\item
+  First two chapters focus on conceptual knowledge
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Debug and tune deep learning models on conventional prediction
+    problems
+  \item
+    Lay the foundation for progressing towrards modern applications
+  \end{itemize}
+\item
+  This will pay off in the third and fourth chapters
+\end{itemize}
+
+    \subsection{Interactions in neural
+network}\label{interactions-in-neural-network}
+
+All network has Inpust Layer, Hidden Layer and Output Layer
+
+\begin{figure}
+\centering
+\includegraphics{https://cdn-images-1.medium.com/max/479/1*QVIyc5HnGDWTNX3m-nIm9w.png}
+\caption{neural network}
+\end{figure}
+
+    If layer has more hidden layers, Ability is increase (more and more)
+
+    \section{Forward propagation}\label{forward-propagation}
+
+    \subsection{Bank Transactions example}\label{bank-transactions-example}
+
+    \begin{itemize}
+\tightlist
+\item
+  Make predictions based on:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Number of children
+  \item
+    Number of exisiting accounts
+  \end{itemize}
+\end{itemize}
+
+    Forwoard Propagation
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+input layer & hidden layer & output layer\tabularnewline
+\midrule
+\endhead
+x & w & y\tabularnewline
+\bottomrule
+\end{longtable}
+
+\[
+xW=y
+\]
+
+    leyer image
+
+    \subsection{Forword propagation}\label{forword-propagation}
+
+\begin{itemize}
+\tightlist
+\item
+  Multiply - add process
+\item
+  Dot product
+\item
+  Foward propagation for one data point at a time
+\item
+  Output is the prediction for that data point
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{input\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} input value}
+         
+         \PY{n}{weights} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}0}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}1}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{output}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{\PYZcb{}} \PY{c+c1}{\PYZsh{} weights for input\PYZus{}data}
+         
+         \PY{n}{node\PYZus{}0\PYZus{}value} \PY{o}{=} \PY{p}{(}\PY{n}{input\PYZus{}data} \PY{o}{*} \PY{n}{weights}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} input 에 Weights하여 더한다.}
+         \PY{n}{node\PYZus{}1\PYZus{}value} \PY{o}{=} \PY{p}{(}\PY{n}{input\PYZus{}data} \PY{o}{*} \PY{n}{weights}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n}{hidden\PYZus{}layer\PYZus{}values} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{node\PYZus{}0\PYZus{}value}\PY{p}{,} \PY{n}{node\PYZus{}1\PYZus{}value}\PY{p}{]}\PY{p}{)} 
+         \PY{c+c1}{\PYZsh{} 각각의 input값들을 각각의 가중치와 곱한뒤 나온 값들을 더한것을 hidden\PYZus{}layer\PYZus{}values 변수에 삽입}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{hidden\PYZus{}layer\PYZus{}values}\PY{p}{)}
+         
+         \PY{n}{output} \PY{o}{=} \PY{p}{(}\PY{n}{hidden\PYZus{}layer\PYZus{}values} \PY{o}{*} \PY{n}{weights}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{output}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)} \PY{c+c1}{\PYZsh{} hidden\PYZus{}layer\PYZus{}value와 output값을 곱했다.}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{output}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[5 1]
+9
+
+    \end{Verbatim}
+
+    \section{Activation funtions}\label{activation-funtions}
+
+    \subsection{Linear VS Nonlinear
+Functions}\label{linear-vs-nonlinear-functions}
+
+선형, 비선형
+
+    \subsection{Activation functions}\label{activation-functions}
+
+앞선 Layer 관계를 통해 확인가능
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+input & Hidden Layer & output\tabularnewline
+\midrule
+\endhead
+2, 3 & tanh(2+3), tanh(-2+3) & 9\tabularnewline
+\bottomrule
+\end{longtable}
+
+ \#\# ReLU(Rectified Linear Activation)
+\href{http://mongxmongx2.tistory.com/25}{ReLU관한 링크},
+\href{http://ydseo.tistory.com/41}{Gradient Vanising에 대한 문제 링크}
+
+    ReLU를 사용하기 이전에는 activation function으로 sigmoid function을
+사용했다. sigmoid function이 연속이여서 미분가능한점과 0과 1사이의 값을
+가진다는 점 그리고 0에서 1로 변하는 점이 가파르기 때문에 사용해왔다.
+그러나 기존에 사용하던 Simgoid fucntion을 ReLu가 대체하게 된 이유 중
+가장 큰 것이 {Gradient Vanishing} 문제이다. Simgoid function은 0에서
+1사이의 값을 가지는데 gradient descent를 사용해 Backpropagation 수행시
+layer를 지나면서 gradient를 계속 곱하므로 gradient는 {0으로 수렴}하게
+된다. 따라서 layer가 많아지면 잘 작동하지 않게 된다.
+
+    \textbf{따라서 이러한 문제를 해결하기위해 ReLu를 새로운 activation
+function을 사용한다. ReLu는 입력값이 0보다 작으면 0이고 0보다 크면
+입력값 그대로를 내보낸다.}
+
+    \begin{figure}
+\centering
+\includegraphics{http://cfile9.uf.tistory.com/image/246B094F57F226C0366860}
+\caption{ReLU}
+\end{figure}
+
+    \section{Deeper networks}\label{deeper-networks}
+
+    tanh(쌍곡선 함수): 수학에서 쌍곡선함수(双曲線函數)는 일반적인 삼각함수와
+유사한 성질을 갖는 함수로 삼각함수가 단위원 그래프를 매개변수로 표시할
+때 나오는 것처럼, 표준쌍곡선을 매개변수로 표시할 때 나온다.
+
+tanh를 사용하는 이유: sigmod쓰지 않고 tanh를 쓰는 이유는 수식으로 쓰자면
+0.5 (tanh (x)+1)=sigmoid (2x) 라 tanh (x)는 sigmoid (x)보다 두배
+빨라서(추측)
+
+그렇다면 sigmod를 왜 사용하나: sigmoid는 logistic classification에서
+어디에 속하는지 분류를 하기 위해 사용했다. 일정 값을 넘어야 성공내지는
+참(True)이 될 수 있기 때문에 Activation function이라고도 불렀다.
+
+    
+\includegraphics{http://cfile28.uf.tistory.com/image/253F5947579F7BC32B036E}
+
+    ReLu를 이용하여 어떤 특징을 잡고, 이로부터 A인지 B인지 에 대해 한 구분을
+한다.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        
+        
+        \PY{n}{input\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{weights} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}0}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}1}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                  \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{output}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{\PYZcb{}}
+        
+        \PY{n}{node\PYZus{}0\PYZus{}input} \PY{o}{=} \PY{p}{(}\PY{n}{input\PYZus{}data} \PY{o}{*} \PY{n}{weights}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{node\PYZus{}0\PYZus{}output} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{tanh}\PY{p}{(}\PY{n}{node\PYZus{}0\PYZus{}input}\PY{p}{)}
+        
+        \PY{n}{node\PYZus{}1\PYZus{}input} \PY{o}{=} \PY{p}{(}\PY{n}{input\PYZus{}data} \PY{o}{*} \PY{n}{weights}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n}{node\PYZus{}1\PYZus{}output} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{tanh}\PY{p}{(}\PY{n}{node\PYZus{}1\PYZus{}input}\PY{p}{)}
+        
+        \PY{n}{hidden\PYZus{}layer\PYZus{}outputs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{node\PYZus{}0\PYZus{}output}\PY{p}{,} \PY{n}{node\PYZus{}1\PYZus{}output}\PY{p}{]}\PY{p}{)}
+        
+        \PY{n}{output} \PY{o}{=} \PY{p}{(}\PY{n}{hidden\PYZus{}layer\PYZus{}outputs} \PY{o}{*} \PY{n}{weights}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{output}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{output}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+-5.99995084645
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+         
+         \PY{n}{input\PYZus{}data} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+         
+         \PY{k}{def} \PY{n+nf}{relu}\PY{p}{(}\PY{n+nb}{input}\PY{p}{)}\PY{p}{:}
+             \PY{n}{relu\PYZus{}value} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n+nb}{input}\PY{p}{)}
+             \PY{k}{return} \PY{n}{relu\PYZus{}value}
+         
+         \PY{n}{weights} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:}\PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}0\PYZus{}output}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}1\PYZus{}output}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,}\PY{c+c1}{\PYZsh{} 왜 ([1, 2])는 안되는가?}
+                   \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{output}\PY{l+s+s1}{\PYZsq{}} \PY{p}{:} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}\PY{p}{)}\PY{p}{\PYZcb{}}
+         
+         \PY{n}{node\PYZus{}0\PYZus{}input} \PY{o}{=} \PY{p}{(}\PY{n}{input\PYZus{}data} \PY{o}{*} \PY{n}{weights}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}0}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{n}{node\PYZus{}0\PYZus{}output} \PY{o}{=} \PY{n}{relu}\PY{p}{(}\PY{n}{node\PYZus{}0\PYZus{}input}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{node\PYZus{}0\PYZus{}output}\PY{p}{)}
+         \PY{n}{node\PYZus{}1\PYZus{}input} \PY{o}{=} \PY{p}{(}\PY{n}{input\PYZus{}data} \PY{o}{*} \PY{n}{weights}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{n}{node\PYZus{}1\PYZus{}output} \PY{o}{=} \PY{n}{relu}\PY{p}{(}\PY{n}{node\PYZus{}1\PYZus{}input}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} print(node\PYZus{}1\PYZus{}output)}
+         \PY{n}{hidden\PYZus{}layer\PYZus{}outputs} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{node\PYZus{}0\PYZus{}output}\PY{p}{,} \PY{n}{node\PYZus{}1\PYZus{}output}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{node\PYZus{}0\PYZus{}output2} \PY{o}{=} \PY{p}{(}\PY{n}{hidden\PYZus{}layer\PYZus{}outputs} \PY{o}{*} \PY{n}{weights}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}0\PYZus{}output}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{n}{node\PYZus{}0\PYZus{}output3} \PY{o}{=} \PY{n}{relu}\PY{p}{(}\PY{n}{node\PYZus{}0\PYZus{}output2}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} print(node\PYZus{}0\PYZus{}output3)}
+         
+         \PY{n}{node\PYZus{}1\PYZus{}output2} \PY{o}{=} \PY{p}{(}\PY{n}{hidden\PYZus{}layer\PYZus{}outputs} \PY{o}{*} \PY{n}{weights}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{node\PYZus{}1\PYZus{}output}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         \PY{n}{node\PYZus{}1\PYZus{}output3} \PY{o}{=} \PY{n}{relu}\PY{p}{(}\PY{n}{node\PYZus{}1\PYZus{}output2}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{node\PYZus{}1\PYZus{}output3}\PY{p}{)}
+         
+         \PY{n}{hidden\PYZus{}layer\PYZus{}outputs2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{p}{[}\PY{n}{node\PYZus{}0\PYZus{}output3}\PY{p}{,} \PY{n}{node\PYZus{}1\PYZus{}output3}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{output} \PY{o}{=} \PY{p}{(}\PY{n}{hidden\PYZus{}layer\PYZus{}outputs2} \PY{o}{*} \PY{n}{weights}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{output}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{p}{)}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{output}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+26
+52
+364
+
+    \end{Verbatim}
+
+    26*7
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{l+m+mi}{26}\PY{o}{*}\PY{l+m+mi}{7}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:} 182
+\end{Verbatim}
+            
+    \subsection{Representation
+Learning(표현학습)}\label{representation-learninguxd45cuxd604uxd559uxc2b5}
+
+    \href{http://hugman.re.kr/blog/repr_learning}{Representation}
+
+\begin{figure}
+\centering
+\includegraphics{http://hugman.re.kr/static/media/uploads/apple_rep.png}
+\caption{표현학습의 예}
+\end{figure}
+
+    숫자 덩어리(Tensor)의 장점 1. 도메인의 전문가 없이도 쌓아놓은 데이터만
+가지고도 정보를 구축할 수 있습니다. 2. 어떠한 유형의 데이터든 하나로
+묶을 수 있습니다. 3. 사람의 기호로 표현하기 힘든 그 무엇(Feeling, Sense
+등등 에 대한것을 표현?)
+
+    이런식의 Tensor들이 모여 컴퓨터 스스로 하나의 특징표현을 만들어내는것 =
+Representation Learning(표현학습)
+
+    미리 공부하면 좋은 학습들 - 퍼셉트론 - 하강경사법 - Overfitting -
+오류역전파 알고리즘 - 소벨마스크 - 선형회귀/로지스틱 회귀 - Sigmoid
+
+    \section{The need for optimization}\label{the-need-for-optimization}
+
+    \subsection{A baseline neural Network}\label{a-baseline-neural-network}
+
+    오차를 줄이는방법(시작한다는 말)
+
+    \section{Gradient descent}\label{gradient-descent}
+
+    오차를 줄이기 위해 기울기(\textbf{미분})를 이용하여 점진적으로 오차를
+줄여가는 방식
+
+    \href{http://aikorea.org/cs231n/optimization-1}{gradient}
+
+    \section{Backpropagation}\label{backpropagation}
+
+    \href{http://llnntms.tistory.com/31}{back propagation(역전파)}
+
+    역전파 알고리즘을 적용시키기 이전에 MLP에 대해 몇가지 알아야할 것들이
+있다.
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\item
+  초기 가중치, weight값은 랜덤으로 주어진다.
+\item
+  각각 노드, node는 하나의 퍼셉트론으로 생각한다. 즉, 노드를 지나칠
+  때마다 활성함수를 적용한다. 활성함수를 적용하기 이전을 net, 이후를
+  out이라고 하겠다. 다음 레이어의 계산에는 out값을 사용한다. 마지막
+  out이 output이 된다.
+\item
+  활성함수는 시그모이드 sigmoid 함수로 한다.(시그모이드 함수에 관해서는
+  https://en.wikipedia.org/wiki/Sigmoid\_function)
+
+  (미분하기 용이해서 대표적으로 쓰이는 함수)
+\end{enumerate}
+
+    \section{Classification 모델}\label{classification-uxbaa8uxb378}
+
+    카테고리에 해당하는 것을 나누는것 대표적으로 onehot encoding
+\href{http://www.openwith.net/?p=617}{link}
+
+    \section{Modelvalidation}\label{modelvalidation}
+
+    \href{http://daryan.tistory.com/21}{교차검증 혹은 유효검사}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  데이터 50\% : 50\% 분할
+\item
+  Leave one out cross validation (LOOCV)
+\item
+  \textbf{k-fold}
+  \includegraphics{http://cfile7.uf.tistory.com/image/24153F4F5883D16E021099}
+  정해진 것은 없지만, 보통 10개를 하고, 필요에 따라서 더 많이 합니다.
+  명심해야할 것은 K가 적어질수록 모델의 평가는 편중될수 밖에 없으며,
+  결과도 정확하지 않습니다. k가 높을수록 평가는 bias가 낮아지지만,
+  결과의 분산이 높을수 있습니다. (즉 k=100일 경우 정확도가
+  1\textasciitilde{}100점이라고 나올수 있으며, 이럴경우에는 50점의
+  정확도를 가진다고 표현할수 있으며, k=20일 경우 정확도가
+  25\textasciitilde{}75점이라고 나와서 , 정확도가 50이라고 표현할수도
+  있습니다. 동일한 정확도이지만 k-100일 경우가 분산이 더 높은 결과임은
+  틀림없습니다.)
+\end{enumerate}
+
+    \section{Overfitting and Underfitting(Model
+capacity)}\label{overfitting-and-underfittingmodel-capacity}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
